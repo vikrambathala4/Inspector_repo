@@ -1,0 +1,16 @@
+name: AWS repo Sync
+on:
+  workflow_dispatch:
+jobs:
+  clone and Push
+    runs on: ubuntu
+  steps:
+    - name: Sparse checkout
+      uses: actions/checkout@v4
+      with:
+        repository: 'https://github.com/aws-actions/vulnerability-scan-github-action-for-amazon-inspector'
+        sparse-checkout: |
+          /*
+          !.github/
+          
+  
