@@ -13,5 +13,4 @@ jobs:
         with:
           repository: 'aws-actions/vulnerability-scan-github-action-for-amazon-inspector'
           sparse-checkout: |
-            *
             !.github/
