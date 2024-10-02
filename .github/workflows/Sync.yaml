@@ -12,5 +12,4 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: 'aws-actions/vulnerability-scan-github-action-for-amazon-inspector'
-          sparse-checkout: |
-            !.github/
+          sparse-checkout: .
