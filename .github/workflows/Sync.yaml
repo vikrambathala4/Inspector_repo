@@ -1,15 +1,32 @@
-name: AWS repo Sync
+name: Sync
 
 on:
+  schedule:
+    - cron: '0 0 * * *'
   workflow_dispatch:
 
 jobs:
-  clone_and_push:
+  sync:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Sparse checkout
-        uses: actions/checkout@v4
-        with:
-          repository: 'aws-actions/vulnerability-scan-github-action-for-amazon-inspector'
-          sparse-checkout: .
+    - name: Checkout repo
+      uses: actions/checkout@v4
+      with:
+        token: ${{secrets.PAT_TOKEN}}
+        ref: 'main'
+
+    - name: Set Git identity for cron job
+      run: |
+        git config --global user.email "GitHub-actions_Bot@optum.com"
+        git config --global user.name "GitHub Actions Bot"
+
+    - name: Add AWS marketplace repo as aws_upstream and fetch & merge changes to repo
+      run: |
+        git checkout main
+        git remote add aws_upstream https://github.com/aws-actions/vulnerability-scan-github-action-for-amazon-inspector.git
+        git fetch aws_upstream
+        git merge aws_upstream/main
+
+    - name: Push changes to the UHG remote repo
+      run: git push origin
