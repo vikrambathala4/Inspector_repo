@@ -26,7 +26,15 @@ jobs:
         git checkout main
         git remote add aws_upstream https://github.com/aws-actions/vulnerability-scan-github-action-for-amazon-inspector.git
         git fetch aws_upstream
-        git merge aws_upstream/main --allow-unrelated-histories
+        git merge aws_upstream/main --allow-unrelated-histories ----no-commit
+
+    - name: Restore local version of the .github folder
+      run: |
+        git checkout main -- .github/
+        git add .github/
+        
+    - name: Commit the merge manually
+      run: git commit -m "Manually merged aws_upstream/main and restored .github folder"
 
     - name: Push changes to the UHG remote repo
       run: git push origin
