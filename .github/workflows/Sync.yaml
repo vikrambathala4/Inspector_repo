@@ -21,20 +21,22 @@ jobs:
         git config --global user.email "GitHub-actions_Bot@optum.com"
         git config --global user.name "GitHub Actions Bot"
 
+    - name: Backup Privateworkflow.yml
+      run: cp .github /tmp/
+
     - name: Add AWS marketplace repo as aws_upstream and fetch & merge changes to repo
       run: |
         git checkout main
+        copy .github /tmp/
         git remote add aws_upstream https://github.com/aws-actions/vulnerability-scan-github-action-for-amazon-inspector.git
         git fetch aws_upstream
-        git merge aws_upstream/main --allow-unrelated-histories ----no-commit
-
-    - name: Restore local version of the .github folder
-      run: |
-        git checkout main -- .github/
-        git add .github/
+        git merge aws_upstream/main --allow-unrelated-histories
         
+    - name: Restore Privateworkflow.yml
+      run: mv /tmp/Privateworkflow.yml .github/workflows/
+
     - name: Commit the merge manually
-      run: git commit -m "Manually merged aws_upstream/main and restored .github folder"
+      run: git commit -m "Merge aws_upstream and restore Privateworkflow.yml"
 
     - name: Push changes to the UHG remote repo
       run: git push origin
