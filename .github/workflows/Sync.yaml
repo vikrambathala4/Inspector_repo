@@ -26,8 +26,6 @@ jobs:
 
     - name: Add AWS marketplace repo as aws_upstream and fetch & merge changes to repo
       run: |
-        git checkout main
-        copy .github /tmp/
         git remote add aws_upstream https://github.com/aws-actions/vulnerability-scan-github-action-for-amazon-inspector.git
         git fetch aws_upstream
         git merge aws_upstream/main --allow-unrelated-histories
