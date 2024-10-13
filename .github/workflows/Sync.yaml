@@ -31,10 +31,9 @@ jobs:
         git merge aws_upstream/main --allow-unrelated-histories
         
     - name: Restore Privateworkflow.yml
-      run: mv /tmp/Privateworkflow.yml .github/workflows/
-
+      run: mv /tmp/.github ./
     - name: Commit the merge manually
-      run: git commit -m "Merge aws_upstream and restore Privateworkflow.yml"
+      run: git commit -m "Merge aws_upstream and restore .guthub"
 
     - name: Push changes to the UHG remote repo
       run: git push origin
