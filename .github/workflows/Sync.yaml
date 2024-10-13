@@ -22,7 +22,7 @@ jobs:
         git config --global user.name "GitHub Actions Bot"
 
     - name: Backup Privateworkflow.yml
-      run: cp .github /tmp/
+      run: cp -r .github /tmp/
 
     - name: Add AWS marketplace repo as aws_upstream and fetch & merge changes to repo
       run: |
