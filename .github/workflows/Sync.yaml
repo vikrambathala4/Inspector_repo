@@ -31,7 +31,7 @@ jobs:
         git merge aws_upstream/main --allow-unrelated-histories
         
     - name: Restore .github
-      run: cp -r /tmp/.github ./.github
+      run: cp -r /tmp/.github/. ./.github/
     - name: stage and Commit the merge manually
       run: |
         git add .github/
