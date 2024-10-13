@@ -1,9 +1,0 @@
-{
-    "sbom": {
-        "specVersion": "1.5",
-        "metadata": {},
-        "components": null,
-        "bomFormat": "CycloneDX",
-        "vulnerabilities": null
-    }
-}
