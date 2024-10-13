@@ -1,7 +1,0 @@
-plan.txt
-*.swp
-.idea
-__pycache__
-scripts/entrypoint/test_data
-.coverage
-.DS_Store
