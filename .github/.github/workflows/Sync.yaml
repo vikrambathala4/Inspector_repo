@@ -1,0 +1,41 @@
+name: Sync
+
+on:
+  schedule:
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v4
+      with:
+        token: ${{secrets.PAT_TOKEN}}
+        ref: 'main'
+
+    - name: Set Git identity for cron job
+      run: |
+        git config --global user.email "GitHub-actions_Bot@optum.com"
+        git config --global user.name "GitHub Actions Bot"
+
+    - name: Backup Privateworkflow.yml
+      run: cp -r .github /tmp/
+
+    - name: Add AWS marketplace repo as aws_upstream and fetch & merge changes to repo
+      run: |
+        git remote add aws_upstream https://github.com/aws-actions/vulnerability-scan-github-action-for-amazon-inspector.git
+        git fetch aws_upstream
+        git merge aws_upstream/main --allow-unrelated-histories
+        
+    - name: Restore .github
+      run: cp -r /tmp/.github ./.github
+    - name: stage and Commit the merge manually
+      run: |
+        git add .github/
+        git commit -m "Merge aws_upstream and restore .guthub"
+
+    - name: Push changes to the UHG remote repo
+      run: git push origin
