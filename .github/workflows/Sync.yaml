@@ -36,7 +36,7 @@ jobs:
         cp -r /tmp/.github ./
     - name: stage and Commit the merge manually
       run: |
-        git add .
+        git add .github
         git commit -m "Merge aws_upstream and restore .guthub"
 
     - name: Push changes to the UHG remote repo
