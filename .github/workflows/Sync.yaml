@@ -30,11 +30,13 @@ jobs:
         git fetch aws_upstream
         git merge aws_upstream/main --allow-unrelated-histories
         
-    - name: Restore .github
-      run: cp -r /tmp/.github/. ./.github/
+    - name: deletecurrent & Restore old.github
+      run: |
+        rm -rf .github
+        cp -r /tmp/.github ./
     - name: stage and Commit the merge manually
       run: |
-        git add .github/
+        git add .
         git commit -m "Merge aws_upstream and restore .guthub"
 
     - name: Push changes to the UHG remote repo
